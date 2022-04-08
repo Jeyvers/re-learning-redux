@@ -1,0 +1,60 @@
+Course Structure
+
+- Functional programming
+- Fundamentals of Redux 
+- Build redux from scratch
+- Debugging
+- Write clean code
+-
+- Redux Store
+- Middleware
+- Calling APIs
+- Testing Redux Apps
+- Integration with React
+
+Explanation
+1. sFunctional programming
+    - Object-oriented
+    - Procedural
+    - Event-driven 
+        - More conscise
+        - Easier to deubg 
+        - Easier to test
+        - More scalable 
+
+
+Functions are first-cass citizens, we can treat them like every other vairable. We can assign them to a variable, pass them as arguments and return them from other functions
+
+Higher order functions are functions that take a function as an argument or/and returns it. 
+
+Pure Functions: 
+- No random values
+- No current date/time
+- No global state (DOM, files, db, etc)
+- No mutation of parameters
+    Reducers must be pure functions
+
+    Benefits of pure functions 
+    - Self-documenting (everything a function needs is specified)
+    - Easily testable
+    - Concurrency 
+    - Cacheable 
+ - Arrays and objects are immutable. const doesn't make it immutable, it makes it impossible to reassign
+ 
+    Benefits of immutability
+    - Predictability
+    - Faster Change Detection
+    - Concurrency
+
+    Debenefits of immutability
+    - Slower performance
+    - Memory overhead
+    
+- Structural sharing precents memory overhead by sharing data.
+
+
+Redux Fundamentals
+- Store includes application states. 
+- An action is a javascript object which defines what happened - like events.
+- Reducers will know what part of the state to update - like event handlers - pure functions. 
+action - dispatch - store - forward - reducer - store - ui
