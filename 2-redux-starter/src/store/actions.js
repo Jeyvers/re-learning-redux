@@ -18,6 +18,8 @@ import * as actions from './actionTypes';
 //   };
 // }
 
+// Ducks Pattern
+
 export const addBug = (description) => ({
   type: actions.ADD_BUG,
   payload: {
