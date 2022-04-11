@@ -1,5 +1,6 @@
-import store from './store.js';
-import * as actions from './store/actions';
+import store from './store/store.js';
+// Not really bad in this case to import all as actions. In bigger applications, rememeber to change this.
+import * as actions from './store/bugs';
 store.subscribe(() => {
   console.log('store changed');
 });
