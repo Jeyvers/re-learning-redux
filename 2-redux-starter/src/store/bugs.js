@@ -1,3 +1,8 @@
+import { createAction } from '@reduxjs/toolkit';
+
+// Using redux, this achieves same thing as resolveBug exported function
+const action = createAction('resolveBug');
+console.log(action({ id: 1 }));
 // Action Types
 const ADD_BUG = 'ADD_BUG';
 const REMOVE_BUG = 'REMOVE_BUG';
