@@ -4,6 +4,7 @@ let lastId = 0;
 
 // Creates the actions and the reducers
 const slice = createSlice({
+  // name of the state, the initialState & the reducers
   name: 'bugs',
   initialState: [],
   reducers: {

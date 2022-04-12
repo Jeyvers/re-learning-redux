@@ -1,14 +1,9 @@
-// Not really bad in this case to import all as actions. In bigger applications, rememeber to change this.
-import * as actions from './store/bugs';
-
 import configureStore from './store/configureStore.js';
+import { addProject } from './store/projects.js';
 
 const store = configureStore();
 store.subscribe(() => {
   console.log('store changed');
 });
-store.dispatch(actions.addBug({ description: 'Bug 1' }));
-store.dispatch(actions.addBug({ description: 'Bug 2' }));
-store.dispatch(actions.addBug({ description: 'Bug 3' }));
-store.dispatch(actions.resolveBug({ id: 1 }));
-// console.log(store.getState());
+
+store.dispatch(addProject({ description: 'Project 1' }));
