@@ -1,33 +1,17 @@
 import { createAction } from '@reduxjs/toolkit';
 
-// Using redux, this achieves same thing as resolveBug exported function
-const action = createAction('resolveBug');
-console.log(action({ id: 1 }));
-// Action Types
-const ADD_BUG = 'ADD_BUG';
-const REMOVE_BUG = 'REMOVE_BUG';
-const RESOLVE_BUG = 'RESOLVE_BUG';
-
-// Action Creators
-export const addBug = (description) => ({
-  type: ADD_BUG,
-  payload: {
-    description,
-  },
-});
-
-export const resolveBug = (id) => ({
-  type: RESOLVE_BUG,
-  payload: {
-    id,
-  },
-});
+export const addBug = createAction('addBug');
+export const resolveBug = createAction('resolveBug');
+export const removeBug = createAction('removeBug');
 
 // Reducers
 let lastId = 0;
+
 export default function reducer(state = [], action) {
   switch (action.type) {
-    case ADD_BUG:
+    //   It is not just addBug because you're creating an action, and setting the type in one module. So the type which is 'addBug' is what we are accesing.
+    // Refer to previous commit histories to see difference
+    case addBug.type:
       return [
         ...state,
         {
@@ -37,10 +21,10 @@ export default function reducer(state = [], action) {
         },
       ];
 
-    case REMOVE_BUG:
+    case removeBug.type:
       return state.filter((bug) => bug.id !== action.payload.id);
 
-    case RESOLVE_BUG:
+    case resolveBug.type:
       return state.map((bug) =>
         bug.id !== action.payload.id ? bug : { ...bug, resolved: true }
       );

@@ -7,8 +7,8 @@ const store = configureStore();
 store.subscribe(() => {
   console.log('store changed');
 });
-store.dispatch(actions.addBug('Bug 1'));
-store.dispatch(actions.addBug('Bug 2'));
-store.dispatch(actions.addBug('Bug 3'));
-store.dispatch(actions.resolveBug(1));
+store.dispatch(actions.addBug({ description: 'Bug 1' }));
+store.dispatch(actions.addBug({ description: 'Bug 2' }));
+store.dispatch(actions.addBug({ description: 'Bug 3' }));
+store.dispatch(actions.resolveBug({ id: 1 }));
 // console.log(store.getState());
