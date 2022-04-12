@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import reducer from './bugs';
 
 // Using redux toolkit
+// This creates your store
 export default function () {
   return configureStore({ reducer });
 }

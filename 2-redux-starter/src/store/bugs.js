@@ -1,5 +1,6 @@
-import { createAction } from '@reduxjs/toolkit';
+import { createAction, createReducer } from '@reduxjs/toolkit';
 
+// Creates your actions, obviously
 export const addBug = createAction('addBug');
 export const resolveBug = createAction('resolveBug');
 export const removeBug = createAction('removeBug');
@@ -7,32 +8,33 @@ export const removeBug = createAction('removeBug');
 // Reducers
 let lastId = 0;
 
-export default function reducer(state = [], action) {
-  switch (action.type) {
-    //   It is not just addBug because you're creating an action, and setting the type in one module. So the type which is 'addBug' is what we are accesing.
-    // Refer to previous commit histories to see difference
-    case addBug.type:
-      return [
-        ...state,
-        {
-          id: ++lastId,
-          description: action.payload.description,
-          resolved: false,
-        },
-      ];
+// Recall to export as default, else the store is null
+// First parameter = initial state.
+export default createReducer([], {
+  // key: value
+  // actions: functions (event => event handler)
 
-    case removeBug.type:
-      return state.filter((bug) => bug.id !== action.payload.id);
+  //   the state parameter has been renamed to bugs
 
-    case resolveBug.type:
-      return state.map((bug) =>
-        bug.id !== action.payload.id ? bug : { ...bug, resolved: true }
-      );
+  //   Type of action must equal name of reducer
 
-    default:
-      return state;
-  }
-}
+  [addBug.type]: (bugs, action) => {
+    bugs.push({
+      id: ++lastId,
+      description: action.payload.description,
+      resolved: false,
+    });
+  },
+
+  [resolveBug.type]: (bugs, action) => {
+    const index = bugs.findIndex((bug) => bug.id === action.payload.id);
+    bugs[index] = true;
+  },
+
+  [removeBug.type]: (bugs, action) => {
+    bugs.filter((bug) => bug.id === action.payload.id);
+  },
+});
 
 // DUCK'S PATTERN RULES
 /*
