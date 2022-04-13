@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import reducer from './projects';
+import reducer from './reducer';
 
 // Using redux toolkit
 // This creates your store
