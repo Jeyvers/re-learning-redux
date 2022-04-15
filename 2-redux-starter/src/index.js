@@ -13,9 +13,11 @@ store.dispatch(addBug({ description: 'Bug 2' }));
 store.dispatch(addBug({ description: 'Bug 3' }));
 store.dispatch(resolveBug({ id: 1 }));
 
-const unresolvedBugs = getUnresolvedBugs(store.getState());
+// const unresolvedBugs = getUnresolvedBugs(store.getState());
+const x = getUnresolvedBugs(store.getState());
+const y = getUnresolvedBugs(store.getState());
 
-console.log(unresolvedBugs);
+console.log(x === y);
 console.log(store.getState());
 
 // Is it okay to store all state or global state in your redux application?

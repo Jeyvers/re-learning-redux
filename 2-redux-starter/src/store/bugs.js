@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
+import { createSelector } from 'reselect';
 let lastId = 0;
 
 // Creates the actions and the reducers
@@ -35,6 +35,18 @@ export const { addBug, resolveBug, removeBug } = slice.actions;
 export default slice.reducer;
 
 // Selector : takes the state and returns a computed state
-export const getUnresolvedBugs = (state) => {
-  state.entities.bugs.filter((bug) => !bug.resolved);
-};
+// export const getUnresolvedBugs = (state) => {
+//   state.entities.bugs.filter((bug) => !bug.resolved);
+// };
+
+// 0.5
+// Memoization
+// f(x) => y {input: 1, output: 2}
+// bugs => get unresolved bugs from the cache
+export const getUnresolvedBugs = createSelector(
+  // You can pass multiple selectors and seperate them with a comma
+  (state) => state.entities.bugs,
+  (state) => state.entities.projects,
+  // The output of the above selectors will end up as the input of the resolved function.
+  (bugs, projects) => bugs.filter((bug) => !bug.resolved)
+);
