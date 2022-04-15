@@ -15,12 +15,12 @@ store.subscribe(() => {
 });
 
 store.dispatch(addUser({ name: 'User 1' }));
-store.dispatch(addUser({ name: 'User 2' }));
-store.dispatch(addProject({ description: 'Project 1' }));
-store.dispatch(addBug({ description: 'Bug 1' }));
-store.dispatch(addBug({ description: 'Bug 2' }));
-store.dispatch(addBug({ description: 'Bug 3' }));
-store.dispatch(bugAssignedToUser({ bugId: 1, userId: 1 }));
+// store.dispatch(addUser({ name: 'User 2' }));
+// store.dispatch(addProject({ description: 'Project 1' }));
+// store.dispatch(addBug({ description: 'Bug 1' }));
+// store.dispatch(addBug({ description: 'Bug 2' }));
+// store.dispatch(addBug({ description: 'Bug 3' }));
+// store.dispatch(bugAssignedToUser({ bugId: 1, userId: 1 }));
 store.dispatch(resolveBug({ id: 1 }));
 // const unresolvedBugs = getUnresolvedBugs(store.getState());
 const bugs = getBugsByUser(1)(store.getState());
