@@ -1,14 +1,22 @@
 import configureStore from './store/configureStore.js';
 import { addProject } from './store/projects.js';
-import * as actions from './store/bugs';
+import { addBug, resolveBug, getUnresolvedBugs } from './store/bugs';
 
 const store = configureStore();
 store.subscribe(() => {
   console.log('store changed');
 });
 
-store.dispatch(actions.addBug({ description: 'Bug 1' }));
 store.dispatch(addProject({ description: 'Project 1' }));
+store.dispatch(addBug({ description: 'Bug 1' }));
+store.dispatch(addBug({ description: 'Bug 2' }));
+store.dispatch(addBug({ description: 'Bug 3' }));
+store.dispatch(resolveBug({ id: 1 }));
+
+const unresolvedBugs = getUnresolvedBugs(store.getState());
+
+console.log(unresolvedBugs);
+console.log(store.getState());
 
 // Is it okay to store all state or global state in your redux application?
 

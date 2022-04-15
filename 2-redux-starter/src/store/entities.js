@@ -10,3 +10,6 @@ export default combineReducers({
 
 // Store - Reducer - parent reducer - child reducer
 // Each reducer is responsible for updating a slice of the application
+
+// Normalization
+// --learn to keeep your data in a flat state, and avoid as much nesting as possible. You can use normalizr library to normalize your data.
