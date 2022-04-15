@@ -5,7 +5,10 @@ import reducer from './reducer';
 // Using redux toolkit
 // This creates your store
 export default function () {
-  return configureStore({ reducer, middleware: [logger] });
+  return configureStore({
+    reducer,
+    middleware: [logger({ destination: 'console' })],
+  });
 }
 
 // BENEFITS
