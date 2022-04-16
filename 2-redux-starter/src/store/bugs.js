@@ -34,10 +34,13 @@ const slice = createSlice({
       bugs.list[index].userId = userId;
     },
 
+    // command - event
+    // bugAdded -addBug
     addBug: (bugs, action) => {
       bugs.list.push(action.payload);
     },
 
+    // bugResolved = (command) resolveBug = (event)
     resolveBug: (bugs, action) => {
       const index = bugs.list.findIndex((bug) => bug.id === action.payload.id);
       bugs.list[index].resolved = true;
@@ -90,6 +93,14 @@ export const bugAdded = (bug) =>
     method: 'post',
     data: bug,
     onSuccess: addBug.type,
+  });
+
+export const bugResolved = (id) =>
+  apiCallBegan({
+    url: url + '/' + id,
+    method: 'patch',
+    data: { resolved: true },
+    onSuccess: resolveBug.type,
   });
 
 export const getUnresolvedBugs = createSelector(
