@@ -1,22 +1,38 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createSelector } from 'reselect';
+import { apiCallBegan } from './api';
 let lastId = 0;
 
 // Creates the actions and the reducers
 const slice = createSlice({
   // name of the state, the initialState & the reducers
   name: 'bugs',
-  initialState: [],
+  initialState: {
+    list: [],
+    loading: false,
+    lastFetch: null,
+  },
   reducers: {
-    // An object that maps actions to action handlers
+    bugsRequested: (bugs, action) => {
+      bugs.loading = true;
+    },
+
+    bugsRequestFailed: (bugs, action) => {
+      bugs.loading = false;
+    },
+
+    bugsReceived: (bugs, action) => {
+      bugs.list = action.payload;
+    },
+
     bugAssignedToUser: (bugs, action) => {
       const { bugId, userId } = action.payload;
-      const index = bugs.findIndex((bug) => bug.id === bugId);
-      bugs[index].userId = userId;
+      const index = bugs.list.findIndex((bug) => bug.id === bugId);
+      bugs.list[index].userId = userId;
     },
-    // addBug is no longer an object but the name of the property which will create action types and reducers
+
     addBug: (bugs, action) => {
-      bugs.push({
+      bugs.list.push({
         id: ++lastId,
         description: action.payload.description,
         resolved: false,
@@ -24,34 +40,40 @@ const slice = createSlice({
     },
 
     resolveBug: (bugs, action) => {
-      bugs.map((bug) =>
-        bug.id !== action.payload.id ? bug : (bug.resolved = true)
-      );
+      const index = bugs.list.findIndex((bug) => bug.id === action.payload.id);
+      bugs.list[index].resolved = true;
     },
 
     removeBug: (bugs, action) => {
-      bugs.filter((bug) => bug.id === action.payload.id);
+      bugs.list.filter((bug) => bug.id === action.payload.id);
     },
   },
 });
 // console.log(slice);
 
-export const { addBug, resolveBug, removeBug, bugAssignedToUser } =
-  slice.actions;
+export const {
+  addBug,
+  resolveBug,
+  removeBug,
+  bugAssignedToUser,
+  bugsReceived,
+  bugsRequested,
+  bugsRequestFailed,
+} = slice.actions;
+
 export default slice.reducer;
 
-// Selector : takes the state and returns a computed state
-// export const getUnresolvedBugs = (state) => {
-//   state.entities.bugs.filter((bug) => !bug.resolved);
-// };
+// Action Creators
+const url = '/bugs';
+export const loadBugs = () =>
+  apiCallBegan({
+    url,
+    onStart: bugsRequested.type,
+    onSuccess: bugsReceived.type,
+    onError: bugsRequestFailed.type,
+  });
 
-// 0.5
-// Memoization
-// f(x) => y {input: 1, output: 2}
-// bugs => get unresolved bugs from the cache
 export const getUnresolvedBugs = createSelector(
-  // You can pass multiple selectors and seperate them with a comma
-  // Selector function (first argument)
   (state) => state.entities.bugs,
   (state) => state.entities.projects,
   // The output of the above selectors will end up as the input of the resolved function.

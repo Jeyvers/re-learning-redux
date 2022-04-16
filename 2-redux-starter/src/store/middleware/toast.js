@@ -1,5 +1,5 @@
 const toast = (store) => (next) => (action) => {
-  if (action.type === 'error') {
+  if (action.type === 'errors') {
     console.log('Toastify', action.payload.message);
   } else {
     next(action);

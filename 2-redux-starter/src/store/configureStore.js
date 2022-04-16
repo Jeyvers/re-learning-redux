@@ -1,4 +1,5 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import api from './middleware/api';
 // import func from './middleware/func';
 import logger from './middleware/logger';
 import toast from './middleware/toast';
@@ -14,6 +15,7 @@ export default function () {
       ...getDefaultMiddleware(),
       logger({ destination: 'console' }),
       toast,
+      api,
       // func,
     ],
   });

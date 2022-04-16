@@ -1,13 +1,9 @@
 import configureStore from './store/configureStore.js';
 
+import { loadBugs } from './store/bugs.js';
 const store = configureStore();
 
 // In redux, actions should be plain objects with a type property
-store.dispatch((dispatch, getState) => {
-  dispatch({ type: 'bugsReceived', bugs: [1, 2, 3] });
-});
+store.dispatch(loadBugs());
 
-store.dispatch({
-  type: 'error',
-  payload: { message: 'An error occurred' },
-});
+// Strings are serializable, functions aren't
