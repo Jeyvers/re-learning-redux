@@ -29,7 +29,7 @@ const slice = createSlice({
     },
 
     bugAssignedToUser: (bugs, action) => {
-      const { bugId, userId } = action.payload;
+      const { id: bugId, userId } = action.payload;
       const index = bugs.list.findIndex((bug) => bug.id === bugId);
       bugs.list[index].userId = userId;
     },
@@ -53,7 +53,9 @@ const slice = createSlice({
 });
 // console.log(slice);
 
-export const {
+// Export keyword removed to reduce coupling.
+// Cohesion - Things which are highly related should be together. That is why he prefers to put actions, action creators and reducers together. This reduces coupling.
+const {
   addBug,
   resolveBug,
   removeBug,
@@ -101,6 +103,14 @@ export const bugResolved = (id) =>
     method: 'patch',
     data: { resolved: true },
     onSuccess: resolveBug.type,
+  });
+
+export const assignBugToUser = (bugId, userId) =>
+  apiCallBegan({
+    url: url + '/' + bugId,
+    method: 'patch',
+    data: { userId },
+    onSuccess: bugAssignedToUser.type,
   });
 
 export const getUnresolvedBugs = createSelector(
