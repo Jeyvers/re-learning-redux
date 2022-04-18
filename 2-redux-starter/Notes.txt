@@ -66,3 +66,16 @@ TESTING - AUTOMATED TESTING
 -Integration tests: This tests the application along with its external resources. It is slower that unit tests. 
 
 - End-to-end tests involve launching the application, and driving it through its user-interface. It is the slowest and most fragile. 
+
+
+The problem is not unit testing itself. It's how you practice it. Unit tests should not test implementation but the behaviour (social tests). In redux, one way to test the application is to test the individual building blocks (Solitary(lonely)test). The actions, reducers and middleware. This is a 'poor' way of testing redux applications. The problems include:
+- Coupled to implementation
+- Break often when implementation is changed
+- Slow us down
+- Not reliable
+
+Social tests are:
+- Less fragile
+- Cheaper to write
+- Cheaper to maintain
+- More reliable
