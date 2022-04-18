@@ -58,3 +58,11 @@ Redux Fundamentals
 - An action is a javascript object which defines what happened - like events.
 - Reducers will know what part of the state to update - like event handlers - pure functions. 
 action - dispatch - store - forward - reducer - store - ui
+
+
+TESTING - AUTOMATED TESTING
+- Unit tests: Involves testing your application without its external dependencies such as files, databases and  web services. So when writing units tests, we provide mock or fake objects that mimick this external resources. App Code -> Mock API -> API. 
+
+-Integration tests: This tests the application along with its external resources. It is slower that unit tests. 
+
+- End-to-end tests involve launching the application, and driving it through its user-interface. It is the slowest and most fragile. 
