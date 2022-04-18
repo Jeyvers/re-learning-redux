@@ -55,7 +55,7 @@ const slice = createSlice({
 
 // Export keyword removed to reduce coupling.
 // Cohesion - Things which are highly related should be together. That is why he prefers to put actions, action creators and reducers together. This reduces coupling.
-const {
+export const {
   addBug,
   resolveBug,
   removeBug,
@@ -89,6 +89,7 @@ export const loadBugs = () => (dispatch, getState) => {
   );
 };
 
+// action should have three steps: api call, promise resolved ? => dispatch(success) : dispatch(error )
 export const bugAdded = (bug) =>
   apiCallBegan({
     url,
