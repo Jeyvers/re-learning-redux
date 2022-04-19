@@ -79,7 +79,7 @@ export const loadBugs = () => (dispatch, getState) => {
 
   if (diffInMinutes < 10) return;
 
-  dispatch(
+  return dispatch(
     apiCallBegan({
       url,
       onStart: bugsRequested.type,
@@ -118,7 +118,7 @@ export const getUnresolvedBugs = createSelector(
   (state) => state.entities.bugs,
   (state) => state.entities.projects,
   // The output of the above selectors will end up as the input of the resolved function.
-  (bugs, projects) => bugs.filter((bug) => !bug.resolved)
+  (bugs, projects) => bugs.list.filter((bug) => !bug.resolved)
 );
 
 export const getBugsByUser = (userId) =>
