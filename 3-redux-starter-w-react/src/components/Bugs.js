@@ -3,11 +3,14 @@ import { useState } from 'react';
 import { useContext } from 'react';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { loadBugs } from '../store/bugs';
+import {
+  bugResolved,
+  getUnresolvedBugs,
+  loadBugs,
+  resolveBug,
+} from '../store/bugs';
 
 const Bugs = (props) => {
-  console.log(props);
-
   useEffect(() => {
     props.loadBugs();
   }, []);
@@ -15,17 +18,21 @@ const Bugs = (props) => {
   return (
     <ul>
       {props.bugs.map((bug) => (
-        <li key={bug.id}>{bug.description}</li>
+        <li key={bug.id}>
+          {bug.description}{' '}
+          <button onClick={() => props.resolveBug(bug.id)}>Resolve</button>
+        </li>
       ))}
     </ul>
   );
 };
 
 // interest: state.entitties.bugs.list
-const mapStateToProps = (state) => ({ bugs: state.entities.bugs.list });
+const mapStateToProps = (state) => ({ bugs: getUnresolvedBugs(state) });
 
 const mapDispatchToProps = (dispatch) => ({
   loadBugs: () => dispatch(loadBugs()),
+  resolveBug: (id) => dispatch(bugResolved(id)),
 });
 
 // Container

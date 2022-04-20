@@ -42,10 +42,12 @@ const slice = createSlice({
 
     // bugResolved = (command) resolveBug = (event)
     resolveBug: (bugs, action) => {
+      // bugs.list.map((bug) =>
+      //   bug.id !== action.payload.id ? bug : (bug.resolved = true)
+      // ),
       const index = bugs.list.findIndex((bug) => bug.id === action.payload.id);
       bugs.list[index].resolved = true;
     },
-
     removeBug: (bugs, action) => {
       bugs.list.filter((bug) => bug.id === action.payload.id);
     },
