@@ -2,35 +2,32 @@ import React from 'react';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { loadBugs } from '../store/bugs';
 
-import StoreContext from '../contexts/storeContext';
-import bugs, { loadBugs } from '../store/bugs';
-
-const Bugs = () => {
-  const store = useContext(StoreContext);
-  const [state, setState] = useState({ bugs: [] });
-  //   const contextType =
+const Bugs = (props) => {
+  console.log(props);
 
   useEffect(() => {
-    console.log(store);
-    const unsubscribe = store.subscribe(() => {
-      const bugsInStore = store.getState().entities.bugs.list;
-      if (state.bugs !== bugsInStore) setState({ bugs: bugsInStore });
-    });
-
-    store.dispatch(loadBugs());
-
-    return () => {
-      unsubscribe();
-    };
+    props.loadBugs();
   }, []);
+
   return (
     <ul>
-      {state.bugs.map((bug) => (
+      {props.bugs.map((bug) => (
         <li key={bug.id}>{bug.description}</li>
       ))}
     </ul>
   );
 };
 
-export default Bugs;
+// interest: state.entitties.bugs.list
+const mapStateToProps = (state) => ({ bugs: state.entities.bugs.list });
+
+const mapDispatchToProps = (dispatch) => ({
+  loadBugs: () => dispatch(loadBugs()),
+});
+
+// Container
+// Presentation (Bugs)
+export default connect(mapStateToProps, mapDispatchToProps)(Bugs);
