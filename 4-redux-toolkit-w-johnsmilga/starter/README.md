@@ -615,6 +615,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 const url = 'https://course-api.com/react-useReducer-cart-project';
 
+// thunk(action type, calback function which returns a promise)
+// the callback function returns lifecycle actions(provided by the redux toolkit). the promise can be pending, fulfilled or rejected [functionName.lifecycleAction]: function
+
 export const getCartItems = createAsyncThunk('cart/getCartItems', () => {
   return fetch(url)
     .then((resp) => resp.json())
